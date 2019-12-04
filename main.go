@@ -3,20 +3,20 @@ package test
 import (
 	ethkeystore "github.com/ethereum/go-ethereum/accounts/keystore"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/iden3/go-iden3-core/core"
+	"github.com/iden3/go-iden3-core/db"
+	babykeystore "github.com/iden3/go-iden3-core/keystore"
+	"github.com/iden3/go-iden3-core/merkletree"
 	"github.com/iden3/go-iden3-crypto/babyjub"
-	"github.com/iden3/go-iden3/core"
-	"github.com/iden3/go-iden3/db"
-	babykeystore "github.com/iden3/go-iden3/keystore"
-	"github.com/iden3/go-iden3/merkletree"
 )
 
 type Global struct {
 	KsEthPath string
-	pass      string
+	Pass      string
 	dbStorage db.Storage
 }
 
-var global Global
+var global *Global
 
 func init() {
 	// global.identities = make(map[core.ID]*identity)
@@ -34,9 +34,13 @@ type Identity struct {
 	genesisProofClaims *core.GenesisProofClaims
 }
 
-func SetPass(pass string) {
-	global.pass = pass
+func SetGlobal(glob *Global) {
+	global = glob
 }
+
+// func SetPass(pass string) {
+// 	global.Pass = pass
+// }
 
 func InitStorage() {
 	global.dbStorage = db.NewMemoryStorage()
@@ -48,22 +52,22 @@ func NewIdentity() (*Identity, error) {
 	if err != nil {
 		return nil, err
 	}
-	kOp, err := ksBaby.NewKey([]byte(global.pass))
+	kOp, err := ksBaby.NewKey([]byte(global.Pass))
 	if err != nil {
 		return nil, err
 	}
 
 	ksEth := ethkeystore.NewKeyStore(global.KsEthPath,
 		ethkeystore.StandardScryptN, ethkeystore.StandardScryptP)
-	accKDis, err := ksEth.NewAccount(global.pass)
+	accKDis, err := ksEth.NewAccount(global.Pass)
 	if err != nil {
 		return nil, err
 	}
-	accKReen, err := ksEth.NewAccount(global.pass)
+	accKReen, err := ksEth.NewAccount(global.Pass)
 	if err != nil {
 		return nil, err
 	}
-	accKUpdateRoot, err := ksEth.NewAccount(global.pass)
+	accKUpdateRoot, err := ksEth.NewAccount(global.Pass)
 	if err != nil {
 		return nil, err
 	}
@@ -106,6 +110,10 @@ func NewIdentity() (*Identity, error) {
 
 func (iden *Identity) ID() string {
 	return iden.id.String()
+}
+
+func (iden *Identity) Unlock() error {
+	return iden.ksBaby.UnlockKey(iden.kOp, []byte(global.Pass))
 }
 
 func (iden *Identity) SignKOp(msg []byte) ([]byte, error) {

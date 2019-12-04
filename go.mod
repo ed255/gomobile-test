@@ -5,7 +5,6 @@ go 1.12
 require (
 	cloud.google.com/go v0.41.0 // indirect
 	github.com/OneOfOne/xxhash v1.2.5 // indirect
-	github.com/aristanetworks/goarista v0.0.0-20190704150520-f44d68189fd7 // indirect
 	github.com/astaxie/beego v1.12.0 // indirect
 	github.com/bradfitz/gomemcache v0.0.0-20190329173943-551aad21a668 // indirect
 	github.com/btcsuite/btcd v0.0.0-20190629003639-c26ffa870fd8 // indirect
@@ -18,7 +17,6 @@ require (
 	github.com/couchbase/gomemcached v0.0.0-20190515232915-c4b4ca0eb21d // indirect
 	github.com/couchbase/goutils v0.0.0-20190315194238-f9d42b11473b // indirect
 	github.com/dgryski/go-sip13 v0.0.0-20190329191031-25c5027a8c7b // indirect
-	github.com/elastic/gosigar v0.10.4 // indirect
 	github.com/ethereum/go-ethereum v1.9.0
 	github.com/fjl/memsize v0.0.0-20190710130421-bcb5799ab5e5 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
@@ -30,7 +28,7 @@ require (
 	github.com/gorilla/mux v1.7.3 // indirect
 	github.com/gorilla/pat v1.0.1 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.9.4 // indirect
-	github.com/iden3/go-iden3 v0.0.6
+	github.com/iden3/go-iden3-core v0.0.6
 	github.com/iden3/go-iden3-crypto v0.0.1
 	github.com/ipfs/go-cid v0.0.3 // indirect
 	github.com/ipfs/go-ipfs-files v0.0.3 // indirect
@@ -74,6 +72,6 @@ require (
 	google.golang.org/grpc v1.22.0 // indirect
 )
 
-replace github.com/iden3/go-iden3 => /home/dev/git/iden3/go-iden3
+replace github.com/iden3/go-iden3-core => /home/dev/git/iden3/go-iden3-core
 
 replace github.com/iden3/go-iden3-crypto => /home/dev/git/iden3/go-iden3-crypto
