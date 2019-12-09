@@ -1,4 +1,4 @@
-module test
+module github.com/ed255/gomobile-test
 
 go 1.12
 
