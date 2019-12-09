@@ -2,7 +2,7 @@ package test
 
 import (
 	ethkeystore "github.com/ethereum/go-ethereum/accounts/keystore"
-	"github.com/ethereum/go-ethereum/common"
+	// "github.com/ethereum/go-ethereum/common"
 	"github.com/iden3/go-iden3-core/core"
 	"github.com/iden3/go-iden3-core/db"
 	babykeystore "github.com/iden3/go-iden3-core/keystore"
@@ -23,15 +23,15 @@ func init() {
 }
 
 type Identity struct {
-	ksBaby             *babykeystore.KeyStore
-	ksEth              *ethkeystore.KeyStore
-	kOp                *babyjub.PublicKeyComp
-	kDis               *common.Address
-	kReen              *common.Address
-	kUpdateRoot        *common.Address
-	id                 *core.ID
-	mt                 *merkletree.MerkleTree
-	genesisProofClaims *core.GenesisProofClaims
+	ksBaby *babykeystore.KeyStore
+	ksEth  *ethkeystore.KeyStore
+	kOp    *babyjub.PublicKeyComp
+	// kDis               *common.Address
+	// kReen              *common.Address
+	// kUpdateRoot        *common.Address
+	id *core.ID
+	mt *merkletree.MerkleTree
+	// genesisProofClaims *core.GenesisProofClaims
 }
 
 func SetGlobal(glob *Global) {
@@ -59,26 +59,27 @@ func NewIdentity() (*Identity, error) {
 
 	ksEth := ethkeystore.NewKeyStore(global.KsEthPath,
 		ethkeystore.StandardScryptN, ethkeystore.StandardScryptP)
-	accKDis, err := ksEth.NewAccount(global.Pass)
-	if err != nil {
-		return nil, err
-	}
-	accKReen, err := ksEth.NewAccount(global.Pass)
-	if err != nil {
-		return nil, err
-	}
-	accKUpdateRoot, err := ksEth.NewAccount(global.Pass)
-	if err != nil {
-		return nil, err
-	}
-	kDis := &accKDis.Address
-	kReen := &accKReen.Address
-	kUpdateRoot := &accKUpdateRoot.Address
+	// accKDis, err := ksEth.NewAccount(global.Pass)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// accKReen, err := ksEth.NewAccount(global.Pass)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// accKUpdateRoot, err := ksEth.NewAccount(global.Pass)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// kDis := &accKDis.Address
+	// kReen := &accKReen.Address
+	// kUpdateRoot := &accKUpdateRoot.Address
 	_kOp, err := kOp.Decompress()
 	if err != nil {
 		return nil, err
 	}
-	id, proofClaims, err := core.CalculateIdGenesis(_kOp, *kDis, *kReen, *kUpdateRoot)
+	claimKOp := core.NewClaimAuthorizeKSignBabyJub(_kOp).Entry()
+	id, _, err := core.CalculateIdGenesis(claimKOp, []*merkletree.Entry{})
 	if err != nil {
 		return nil, err
 	}
@@ -87,24 +88,30 @@ func NewIdentity() (*Identity, error) {
 	if err != nil {
 		return nil, err
 	}
-	proofClaimsList := []core.ProofClaim{proofClaims.KOp, proofClaims.KDis,
-		proofClaims.KReen, proofClaims.KUpdateRoot}
-	for _, proofClaim := range proofClaimsList {
-		err = mt.Add(&merkletree.Entry{Data: *proofClaim.Leaf})
+	// proofClaimsList := []core.ProofClaim{proofClaims.KOp, proofClaims.KDis,
+	// 	proofClaims.KReen, proofClaims.KUpdateRoot}
+	// for _, proofClaim := range proofClaimsList {
+	// 	err = mt.Add(&merkletree.Entry{Data: *proofClaim.Leaf})
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
+	// }
+	for _, claim := range []*merkletree.Entry{claimKOp} {
+		err = mt.Add(claim)
 		if err != nil {
 			return nil, err
 		}
 	}
 	return &Identity{
-		ksBaby:             ksBaby,
-		ksEth:              ksEth,
-		kOp:                kOp,
-		kDis:               kDis,
-		kReen:              kReen,
-		kUpdateRoot:        kUpdateRoot,
-		id:                 id,
-		genesisProofClaims: proofClaims,
-		mt:                 mt,
+		ksBaby: ksBaby,
+		ksEth:  ksEth,
+		kOp:    kOp,
+		// kDis:               kDis,
+		// kReen:              kReen,
+		// kUpdateRoot:        kUpdateRoot,
+		id: id,
+		// genesisProofClaims: proofClaims,
+		mt: mt,
 	}, nil
 }
 
@@ -117,7 +124,7 @@ func (iden *Identity) Unlock() error {
 }
 
 func (iden *Identity) SignKOp(msg []byte) ([]byte, error) {
-	sig, err := iden.ksBaby.Sign(iden.kOp, msg)
+	sig, _, err := iden.ksBaby.Sign(iden.kOp, []byte("test:"), msg)
 	if err != nil {
 		return nil, err
 	}

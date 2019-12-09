@@ -17,8 +17,7 @@ require (
 	github.com/couchbase/gomemcached v0.0.0-20190515232915-c4b4ca0eb21d // indirect
 	github.com/couchbase/goutils v0.0.0-20190315194238-f9d42b11473b // indirect
 	github.com/dgryski/go-sip13 v0.0.0-20190329191031-25c5027a8c7b // indirect
-	github.com/ethereum/go-ethereum v1.9.0
-	github.com/fjl/memsize v0.0.0-20190710130421-bcb5799ab5e5 // indirect
+	github.com/ethereum/go-ethereum v1.9.3
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-kit/kit v0.9.0 // indirect
 	github.com/go-redis/redis v6.15.2+incompatible // indirect
@@ -28,8 +27,9 @@ require (
 	github.com/gorilla/mux v1.7.3 // indirect
 	github.com/gorilla/pat v1.0.1 // indirect
 	github.com/grpc-ecosystem/grpc-gateway v1.9.4 // indirect
-	github.com/iden3/go-iden3-core v0.0.6
-	github.com/iden3/go-iden3-crypto v0.0.1
+	github.com/iden3/go-iden3-core v0.0.7-0.20190926103146-7755a316a8ed
+	// github.com/iden3/go-iden3-core v0.0.6
+	github.com/iden3/go-iden3-crypto v0.0.3-0.20190831180703-c95c95b7b161
 	github.com/ipfs/go-cid v0.0.3 // indirect
 	github.com/ipfs/go-ipfs-files v0.0.3 // indirect
 	github.com/jessevdk/go-flags v1.4.0 // indirect
@@ -62,16 +62,13 @@ require (
 	github.com/wendal/errors v0.0.0-20181209125328-7f31f4b264ec // indirect
 	go.etcd.io/bbolt v1.3.3 // indirect
 	golang.org/x/crypto v0.0.0-20190701094942-4def268fd1a4 // indirect
-	golang.org/x/exp v0.0.0-20190627132806-fd42eb6b336f // indirect
-	golang.org/x/image v0.0.0-20190703141733-d6a02ce849c9 // indirect
-	golang.org/x/mobile v0.0.0-20190711165009-e47acb2ca7f9 // indirect
+	golang.org/x/mobile v0.0.0-20191130191448-5c0e7e404af8 // indirect
 	golang.org/x/net v0.0.0-20190628185345-da137c7871d7 // indirect
 	golang.org/x/sys v0.0.0-20190712062909-fae7ac547cb7 // indirect
-	golang.org/x/tools v0.0.0-20190711191110-9a621aea19f8 // indirect
+	golang.org/x/tools v0.0.0-20191206204035-259af5ff87bd // indirect
 	google.golang.org/genproto v0.0.0-20190708153700-3bdd9d9f5532 // indirect
 	google.golang.org/grpc v1.22.0 // indirect
 )
 
-replace github.com/iden3/go-iden3-core => /home/dev/git/iden3/go-iden3-core
-
-replace github.com/iden3/go-iden3-crypto => /home/dev/git/iden3/go-iden3-crypto
+// replace github.com/iden3/go-iden3-core => /home/dev/git/iden3/go-iden3-core
+// replace github.com/iden3/go-iden3-crypto => /home/dev/git/iden3/go-iden3-crypto
