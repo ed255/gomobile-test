@@ -29,7 +29,7 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway v1.9.4 // indirect
 	github.com/iden3/go-iden3-core v0.0.7-0.20190926103146-7755a316a8ed
 	// github.com/iden3/go-iden3-core v0.0.6
-	github.com/iden3/go-iden3-crypto v0.0.3-0.20190831180703-c95c95b7b161
+	github.com/iden3/go-iden3-crypto v0.0.3-0.20190910084818-eb7d86c5b363
 	github.com/ipfs/go-cid v0.0.3 // indirect
 	github.com/ipfs/go-ipfs-files v0.0.3 // indirect
 	github.com/jessevdk/go-flags v1.4.0 // indirect
